@@ -1836,6 +1836,7 @@
             this.pg_Spell.TabIndex = 1;
             this.pg_Spell.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.pg_Spell_PropertyValueChanged);
             this.pg_Spell.SelectedObjectsChanged += new System.EventHandler(this.pg_Spell_SelectedObjectsChanged);
+            this.pg_Spell.PropertySort = System.Windows.Forms.PropertySort.NoSort;
             // 
             // _bCreatePatch
             // 
