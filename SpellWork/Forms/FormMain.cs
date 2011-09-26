@@ -640,5 +640,49 @@ namespace SpellWork
         }
 
         #endregion
+
+        #region SpellDBC
+        private void _bSearchSpell_Click(object sender, EventArgs e)
+        {
+            FormSearch form = new FormSearch();
+            form.ShowDialog(this);
+            if (form.DialogResult == DialogResult.OK)
+                _tbSpellID.Text = form.Spell.ID.ToString();
+            form.Dispose();
+        }
+
+
+        private void _tbSpellID_TextChanged(object sender, EventArgs e)
+        {
+            uint spell1 = _tbSpellID.Text.ToUInt32();
+            if (DBC.Spell.ContainsKey(spell1))
+                pg_Spell.SelectedObject = new DynamicObject(DBC.Spell[spell1]);
+        }
+
+        private void UpdateSpellInfo()
+        {
+            new SpellInfo(_rbSpellInfo, ((DynamicObject)pg_Spell.SelectedObject).Spell);
+        }
+
+        private void pg_Spell_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            UpdateSpellInfo();
+        }
+
+        private void pg_Spell_SelectedObjectsChanged(object sender, EventArgs e)
+        {
+            UpdateSpellInfo();
+        }
+
+        private void _bCreatePatch_Click(object sender, EventArgs e)
+        {
+            uint spell1 = _tbSpellID.Text.ToUInt32();
+            if (DBC.Spell.ContainsKey(spell1) && (pg_Spell.SelectedObject != null))
+            {
+                _rbDBCSQL.AppendLine(SpellDBC.CreateSpellPatch(spell1, ((DynamicObject)pg_Spell.SelectedObject).Spell));
+            }
+
+        }
+        #endregion
     }
 }
