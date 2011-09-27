@@ -325,6 +325,20 @@ namespace SpellWork
                 return (SpellSchoolMask)SchoolMask;
             }
         }
+        public void SetName(string N)
+        {
+            uint StringID=_SpellName[(uint)DBC.Locale];
+            if  (StringID!=0)
+            {
+                DBC.SpellStrings[StringID]=DBC.SpellStrings[StringID]+" (Override by spell_dbc)";
+            }
+            else
+            {
+                StringID=0x900000+ID;
+                _SpellName[(uint)DBC.Locale]=StringID;
+                DBC.SpellStrings.Add(StringID,N+" (from spell_dbc)");
+            }
+        }
     };
 
     public struct SkillLineEntry

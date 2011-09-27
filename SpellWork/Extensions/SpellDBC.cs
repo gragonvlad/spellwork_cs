@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using MySql.Data.MySqlClient;
 namespace SpellWork
 {
     public static class SpellDBC
@@ -62,5 +63,71 @@ namespace SpellWork
             return result;
         }
         #endregion
+        
+        #region SpellDBC
+        public static void FillSpellDbc(MySqlDataReader reader)
+        {
+                
+            Type ObjType = typeof(SpellEntry);
+
+            byte[] rawData = new byte[Marshal.SizeOf(ObjType)]; //zero buffer for SpellEntry init
+            SpellEntry str;
+            while (reader.Read())
+            {
+
+                uint New_ID = reader[0].ToUInt32();
+                string SpellName=reader[reader.FieldCount - 1].ToString();
+                bool IsNew=!DBC.Spell.ContainsKey(New_ID);
+               
+                if (IsNew)
+                {
+                  
+                 // Init SpellEntry by zero
+                GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
+                str = (SpellEntry)Marshal.PtrToStructure(handle.AddrOfPinnedObject(),ObjType);
+                handle.Free();
+                str.ID = New_ID;
+                str.SetName(SpellName);
+                }
+                else
+                {
+                     str=DBC.Spell[New_ID];
+                     str.SetName("");
+                }
+                
+                TypedReference R = __makeref(str);
+
+                for (int i = 1; i < reader.FieldCount; i++)
+                {
+                    String fname = reader.GetName(i);
+                    FieldInfo f = ObjType.GetField(fname);
+                    if (f == null)
+                    {
+                        //Try to find array
+                        f = ObjType.GetField(fname.Remove(fname.Length - 1));
+                        if (f != null && f.FieldType.IsArray)
+                        {
+
+                            Array arr = (Array)f.GetValueDirect(R);
+                            for (int j = 0; j < arr.Length; j++)
+                            {
+                              arr.SetValue(Convert.ChangeType(reader[i++].ToString(), f.FieldType.GetElementType()),j);
+                            }
+                            i--; //correct counter before next iteration
+                            
+                        }
+
+                    }
+                    else
+                    {
+                        f.SetValueDirect(R, Convert.ChangeType(reader[i].ToString(), f.FieldType));
+                    }
+                }
+                if (IsNew)
+                  DBC.Spell.Add(New_ID, str);
+                
+            }
+        }
+       #endregion
     }
 }

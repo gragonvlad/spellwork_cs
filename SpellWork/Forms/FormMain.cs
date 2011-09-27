@@ -98,6 +98,7 @@ namespace SpellWork
                 _dbConnect.ForeColor = Color.Green;
                 // read db data
                 DBC.ItemTemplate = MySQLConnect.SelectItems();
+                MySQLConnect.SelectSpellSql("SELECT * FROM spell_dbc");
             }
             else
             {

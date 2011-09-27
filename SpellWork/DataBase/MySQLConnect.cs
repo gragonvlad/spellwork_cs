@@ -2,7 +2,6 @@
 using SpellWork.Properties;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
-using System.Windows.Forms;
 
 namespace SpellWork
 {
@@ -177,6 +176,25 @@ namespace SpellWork
             {
                 Connected = false;
             }
+        }
+        
+        public static void SelectSpellSql(string query)
+        {
+
+            using (_conn = new MySqlConnection(ConnectionString))
+            {
+                _command = new MySqlCommand(query, _conn);
+                _conn.Open();
+
+                using (MySqlDataReader reader = _command.ExecuteReader())
+                {
+                 SpellDBC.FillSpellDbc(reader);
+                }
+                
+                _conn.Close();
+            }
+
+
         }
     }
 }
