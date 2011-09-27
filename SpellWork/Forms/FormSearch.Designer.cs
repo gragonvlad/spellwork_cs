@@ -103,7 +103,7 @@
             this._bCencel.Name = "_bCencel";
             this._bCencel.Size = new System.Drawing.Size(75, 23);
             this._bCencel.TabIndex = 10;
-            this._bCencel.Text = "Cencel";
+            this._bCencel.Text = "Cancel";
             this._bCencel.UseVisualStyleBackColor = true;
             this._bCencel.Click += new System.EventHandler(this.Cencel_Click);
             // 

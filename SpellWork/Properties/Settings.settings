@@ -20,5 +20,8 @@
     <Setting Name="UseDbConnect" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SpellDBC_Query" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SELECT * FROM spell_dbc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

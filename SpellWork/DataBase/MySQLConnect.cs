@@ -178,12 +178,12 @@ namespace SpellWork
             }
         }
         
-        public static void SelectSpellSql(string query)
+        public static void SelectSpellSql()
         {
 
             using (_conn = new MySqlConnection(ConnectionString))
             {
-                _command = new MySqlCommand(query, _conn);
+                _command = new MySqlCommand(Settings.Default.SpellDBC_Query, _conn);
                 _conn.Open();
 
                 using (MySqlDataReader reader = _command.ExecuteReader())
