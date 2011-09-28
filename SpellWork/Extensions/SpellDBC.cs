@@ -9,6 +9,9 @@ namespace SpellWork
 {
     public static class SpellDBC
     {
+         private static List<string> SpellDBCFields = new List<string>();
+         private const BindingFlags B_Flags =BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.IgnoreCase;
+
         #region Spell patcher
 
         public static string CreateSpellPatch(uint _spell, SpellEntry Current)
@@ -67,7 +70,11 @@ namespace SpellWork
         #region SpellDBC
         public static void FillSpellDbc(MySqlDataReader reader)
         {
-                
+            SpellDBCFields.Clear();
+            //Create fields list
+            for (int i = 0; i < reader.FieldCount; i++)
+                SpellDBCFields.Add(reader.GetName(i));
+
             Type ObjType = typeof(SpellEntry);
 
             byte[] rawData = new byte[Marshal.SizeOf(ObjType)]; //zero buffer for SpellEntry init
@@ -99,12 +106,12 @@ namespace SpellWork
 
                 for (int i = 1; i < reader.FieldCount; i++)
                 {
-                    String fname = reader.GetName(i);
-                    FieldInfo f = ObjType.GetField(fname);
+                    String fname = SpellDBCFields[i];
+                    FieldInfo f = ObjType.GetField(fname,B_Flags);
                     if (f == null)
                     {
                         //Try to find array
-                        f = ObjType.GetField(fname.Remove(fname.Length - 1));
+                        f = ObjType.GetField(fname.Remove(fname.Length - 1), B_Flags);
                         if (f != null && f.FieldType.IsArray)
                         {
 
@@ -129,5 +136,54 @@ namespace SpellWork
             }
         }
        #endregion
+
+        #region SpellDBC Generate SQL
+        public static StringBuilder CreateSpellSql(SpellEntry Current)
+        {
+            StringBuilder result = new StringBuilder("REPLACE INTO `spell_dbc` ( `");
+            StringBuilder not_found = new StringBuilder();
+            result.AppendFormat("{0}`) VALUES (", String.Join("`, `", SpellDBCFields.ToArray()));
+
+            Type ObjType = typeof(SpellEntry);
+
+
+            for (int i = 0; i < SpellDBCFields.Count; i++)
+            {
+                string FieldName = SpellDBCFields[i];
+                FieldInfo f = ObjType.GetField(FieldName, B_Flags);
+
+                if (f == null)
+                {
+                    //Try to find array
+                    f = ObjType.GetField(FieldName.Remove(FieldName.Length - 1), B_Flags);
+                    if (f != null && f.FieldType.IsArray)
+                    {
+
+                        foreach (var v in (Array)f.GetValue(Current))
+                        {
+                            result.AppendFormat("{0},", v.ToMySqlString());
+                            i++;
+                        }
+                        i--; //correct counter before next iteration
+
+                    }
+                    else
+                    {
+                        not_found.AppendFormat("{0} ", FieldName);
+                    }
+
+                }
+                else
+                {
+                    result.AppendFormat("{0},", f.GetValue(Current).ToMySqlString());
+                }
+            }
+
+            result.AppendFormat("'{0}');", Current.SpellName); //assume that the last field is `Comment`
+            result.AppendFormat("-- Attention! Fields {0}not mapped ", not_found.ToString());
+
+            return result;
+        }
+        #endregion
     }
 }

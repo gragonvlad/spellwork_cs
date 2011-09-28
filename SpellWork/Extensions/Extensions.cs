@@ -332,6 +332,14 @@ namespace SpellWork
 
             return _enum.ToString();
         }
+
+        public static string ToMySqlString(this Object val)
+        {
+            if (val == null)
+                return string.Empty;
+            return val.ToString().Replace(",",".");
+        }
+
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]

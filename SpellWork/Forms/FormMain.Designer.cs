@@ -1844,7 +1844,7 @@
             this._bCreatePatch.Name = "_bCreatePatch";
             this._bCreatePatch.Size = new System.Drawing.Size(75, 23);
             this._bCreatePatch.TabIndex = 3;
-            this._bCreatePatch.Text = "Patch";
+            this._bCreatePatch.Text = "Create SQL";
             this._bCreatePatch.UseVisualStyleBackColor = true;
             this._bCreatePatch.Click += new System.EventHandler(this._bCreatePatch_Click);
             // 
