@@ -1546,6 +1546,7 @@ namespace SpellWork
         UNIT_MOD_RESISTANCE_END         = UNIT_MOD_RESISTANCE_ARCANE + 1,
         UNIT_MOD_POWER_START            = UNIT_MOD_MANA,
         UNIT_MOD_POWER_END              = UNIT_MOD_RUNIC_POWER       + 1,
+        UNIT_MOD_ALL_STAT               = -1                  // STRENGTH, AGILITY, STAMINA, INTELLECT, SPIRIT
     };
 
     public enum LockType
