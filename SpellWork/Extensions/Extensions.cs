@@ -149,7 +149,7 @@ namespace SpellWork
         {
             for (int i = 0; i < _name.Items.Count; ++i)
             {
-                _name.SetItemChecked(i, ((_value / (1U << (i - 1))) % 2) != 0);
+                _name.SetItemChecked(i, ((_value / (1U << i) % 2) != 0));
             }
         }
 
@@ -158,30 +158,15 @@ namespace SpellWork
             uint val = 0;
             for (int i = 0; i < _name.CheckedIndices.Count; i++)
             {
-                val += 1U << (_name.CheckedIndices[i] - 1);
+                val += 1U << _name.CheckedIndices[i];
             }
 
             return val;
         }
 
-        public static void SetFlags<T>(this CheckedListBox _clb)
+        public static void SetFlags<T>(this CheckedListBox _clb, String remove ="")
         {
-            _clb.Items.Clear();
-
-            foreach (var elem in Enum.GetValues(typeof(T)))
-            {
-                _clb.Items.Add(elem.ToString().NormaliseString(String.Empty));
-            }
-        }
-
-        public static void SetFlags<T>(this CheckedListBox _clb, String remove)
-        {
-            _clb.Items.Clear();
-
-            foreach (var elem in Enum.GetValues(typeof(T)))
-            {
-                _clb.Items.Add(elem.ToString().NormaliseString(remove));
-            }
+            _clb.SetFlags(typeof(T), remove);
         }
 
         public static void SetFlags(this CheckedListBox _clb, Type type, String remove)
@@ -190,6 +175,7 @@ namespace SpellWork
 
             foreach (var elem in Enum.GetValues(type))
             {
+                if (!type.IsDefined(typeof(FlagsAttribute), true) || (int)elem > 0) //drop zero value from flags
                 _clb.Items.Add(elem.ToString().NormaliseString(remove));
             }
         }

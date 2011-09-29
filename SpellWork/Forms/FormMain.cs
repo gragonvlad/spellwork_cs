@@ -577,9 +577,11 @@ namespace SpellWork
                 _clbSchools.GetFlagsValue(),
                 _cbProcFitstSpellFamily.SelectedValue.ToUInt32(),
                 SpellFamilyFlags[0],
+                0, 0,
                 SpellFamilyFlags[1],
+                0, 0,
                 SpellFamilyFlags[2],
-                0,0,0,0,0,0,// пока что так, пока не пойму как...
+                0,0,// пока что так, пока не пойму как...
                 _clbProcFlags.GetFlagsValue(),
                 _clbProcFlagEx.GetFlagsValue(),
                 _tbPPM.Text.Replace(',', '.'),
