@@ -339,6 +339,17 @@ namespace SpellWork
                 return string.Empty;
             return val.ToString().Replace(",",".");
         }
+        
+        public static string FlagToString<T>(this int val)
+        {
+            string result=string.Empty;
+            foreach (var elem in Enum.GetValues(typeof(T)))
+            {
+             if ( (val & (1 << ((int)elem)-1))!=0    )
+               result=String.Format("{0}{1}, ", result, (T)elem);
+            }
+            return result.Trim(new char[]{' ',','});
+        }
 
     }
 

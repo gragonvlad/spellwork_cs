@@ -601,6 +601,10 @@ namespace SpellWork
 
                     rtb.Append((Mechanics)misc);
                     break;
+                    
+                case AuraType.SPELL_AURA_MECHANIC_IMMUNITY_MASK:
+                        rtb.Append(misc.FlagToString<Mechanics>().Replace("MECHANIC_",""));
+                    break;
 
                 case AuraType.SPELL_AURA_MOD_MELEE_ATTACK_POWER_VERSUS:
                 case AuraType.SPELL_AURA_MOD_RANGED_ATTACK_POWER_VERSUS:
