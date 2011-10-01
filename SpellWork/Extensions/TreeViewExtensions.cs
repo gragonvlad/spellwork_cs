@@ -63,9 +63,9 @@ namespace SpellWork
                 if (i < 32)
                     tv.Nodes[i].Checked = ((mask[0, 0] / (1 << i)) % 2) != 0;
                 else if (i < 64)
-                    tv.Nodes[i].Checked = ((mask[0, 1] / (1 << (i - 32))) % 2) != 0;
+                    tv.Nodes[i].Checked = ((mask[1, 0] / (1 << (i - 32))) % 2) != 0;
                 else
-                    tv.Nodes[i].Checked = ((mask[0, 2] / (1 << (i - 64))) % 2) != 0;
+                    tv.Nodes[i].Checked = ((mask[2, 0] / (1 << (i - 64))) % 2) != 0;
             }
 
             ProcInfo.Update = true;
