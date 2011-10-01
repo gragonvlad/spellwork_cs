@@ -337,6 +337,11 @@ namespace SpellWork
             return result.Trim(new char[]{' ',','});
         }
 
+        public static string ToHex(this uint val)
+        {
+            return String.Format("0x{0:X}", val);
+        }
+
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
