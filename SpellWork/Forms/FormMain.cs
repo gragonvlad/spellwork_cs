@@ -603,7 +603,8 @@ namespace SpellWork
             ProcInfo.SpellProc = spell;
 
             new SpellInfo(_rtbProcSpellInfo, spell);
-
+            _tbProcSeach.Text=proc.ID.ToString();
+            Search();
             _clbSchools.SetCheckedItemFromFlag(proc.SchoolMask);
             _clbProcFlags.SetCheckedItemFromFlag(proc.ProcFlags);
             _clbProcFlagEx.SetCheckedItemFromFlag(proc.ProcEx);
@@ -616,7 +617,7 @@ namespace SpellWork
             _tbCooldown.Text = proc.Cooldown.ToString();
 
             _tvFamilyTree.SetMask(proc.SpellFamilyMask);
-            
+            GetProcAttribute(spell);
             tabControl1.SelectedIndex = 1;
         }
 
