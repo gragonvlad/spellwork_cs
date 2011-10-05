@@ -446,20 +446,12 @@ namespace SpellWork
 
         private void CompareSearch1_Click(object sender, EventArgs e)
         {
-            FormSearch form = new FormSearch();
-            form.ShowDialog(this);
-            if (form.DialogResult == DialogResult.OK)
-                _tbCompareFilterSpell1.Text = form.Spell.ID.ToString();
-            form.Dispose();
+            FormSearch.Search(_tbCompareFilterSpell1);
         }
 
         private void CompareSearch2_Click(object sender, EventArgs e)
         {
-            FormSearch form = new FormSearch();
-            form.ShowDialog(this);
-            if (form.DialogResult == DialogResult.OK)
-                _tbCompareFilterSpell2.Text = form.Spell.ID.ToString();
-            form.Dispose();
+            FormSearch.Search(_tbCompareFilterSpell2);
         }
 
         #endregion
@@ -503,29 +495,17 @@ namespace SpellWork
             {
                 case "_bSqlSchool":
                     {
-                        uint val = _tbSqlSchool.Text.ToUInt32();
-                        FormCalculateFlags form = new FormCalculateFlags(typeof(SpellSchools), val, "");
-                        form.ShowDialog(this);
-                        if (form.DialogResult == DialogResult.OK)
-                            _tbSqlSchool.Text = form.Flags.ToString();
+                        FormCalculateFlags.CalculateFlags(_tbSqlSchool,typeof(SpellSchools), "");
                     }
                     break;
                 case "_bSqlProc":
                     {
-                        uint val = _tbSqlProc.Text.ToUInt32();
-                        FormCalculateFlags form = new FormCalculateFlags(typeof(ProcFlags), val, "PROC_FLAG_");
-                        form.ShowDialog(this);
-                        if (form.DialogResult == DialogResult.OK)
-                            _tbSqlProc.Text = form.Flags.ToString();
+                        FormCalculateFlags.CalculateFlags(_tbSqlProc,typeof(ProcFlags),"PROC_FLAG_");
                     }
                     break;
                 case "_bSqlProcEx":
                     {
-                        uint val = _tbSqlProcEx.Text.ToUInt32();
-                        FormCalculateFlags form = new FormCalculateFlags(typeof(ProcFlagsEx), val, "PROC_EX_");
-                        form.ShowDialog(this);
-                        if (form.DialogResult == DialogResult.OK)
-                            _tbSqlProcEx.Text = form.Flags.ToString();
+                        FormCalculateFlags.CalculateFlags(_tbSqlProcEx,typeof(ProcFlagsEx),"PROC_EX_");
                     }
                     break;
             }
@@ -649,11 +629,7 @@ namespace SpellWork
         #region SpellDBC
         private void _bSearchSpell_Click(object sender, EventArgs e)
         {
-            FormSearch form = new FormSearch();
-            form.ShowDialog(this);
-            if (form.DialogResult == DialogResult.OK)
-                _tbSpellID.Text = form.Spell.ID.ToString();
-            form.Dispose();
+            FormSearch.Search(_tbSpellID);
         }
 
 

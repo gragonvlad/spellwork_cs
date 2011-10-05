@@ -34,5 +34,15 @@ namespace SpellWork
             this.Flags = this._clbCalcFlags.GetFlagsValue();
             _lFlagValue.Text = "Value: " + this.Flags;
         }
+        
+        public static void CalculateFlags(TextBox tb,Type data, String remove)
+        {
+            uint val = tb.Text.ToUInt32();
+            FormCalculateFlags form = new FormCalculateFlags(data, val, "");
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+                tb.Text = form.Flags.ToString();
+            form.Dispose();
+        }
     }
 }

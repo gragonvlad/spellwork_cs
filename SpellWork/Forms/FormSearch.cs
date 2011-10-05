@@ -126,5 +126,14 @@ namespace SpellWork
         {
             e.Item = new ListViewItem(new[] { _spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank });
         }
+        
+        public static void Search(TextBox tb)
+        {
+            FormSearch form = new FormSearch();
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+                tb.Text = form.Spell.ID.ToString();
+            form.Dispose();
+        }
     }
 }
