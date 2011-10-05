@@ -35,7 +35,7 @@ namespace SpellWork
             _cbProcSpellFamilyTree.SetEnumValues<SpellFamilyNames>("SpellFamilyTree");
             _cbProcFitstSpellFamily.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
 
-            _clbSchools.SetFlags<SpellSchools>();
+            _clbSchools.SetFlags<SpellSchools>("");
             _clbProcFlags.SetFlags<ProcFlags>("PROC_FLAG_");
             _clbProcFlagEx.SetFlags<ProcFlagsEx>("PROC_EX_");
 

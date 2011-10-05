@@ -164,7 +164,7 @@ namespace SpellWork
             return val;
         }
 
-        public static void SetFlags<T>(this CheckedListBox _clb, String remove ="")
+        public static void SetFlags<T>(this CheckedListBox _clb, String remove)
         {
             _clb.SetFlags(typeof(T), remove);
         }
