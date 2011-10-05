@@ -330,14 +330,16 @@ namespace SpellWork
             uint StringID=_SpellName[(uint)DBC.Locale];
             if  (StringID!=0)
             {
-                DBC.SpellStrings[StringID]=DBC.SpellStrings[StringID]+" (Override by spell_dbc)";
+                N=SpellName+" (Override by spell_dbc)";
             }
             else
             {
-                StringID=0x900000+ID;
-                _SpellName[(uint)DBC.Locale]=StringID;
-                DBC.SpellStrings.Add(StringID,N+" (from spell_dbc)");
+                N+=" (from spell_dbc)";
             }
+
+            StringID=0x900000+ID;
+            _SpellName[(uint)DBC.Locale]=StringID;
+            DBC.SpellStrings.Add(StringID,N);
         }
     };
 
