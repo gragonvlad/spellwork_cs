@@ -641,6 +641,11 @@ namespace SpellWork
                 case AuraType.SPELL_AURA_CONVERT_RUNE:
                     rtb.Append((RuneType)misc);
                     break;
+                    
+                case AuraType.SPELL_AURA_IGNORE_COMBAT_RESULT:
+                case AuraType.SPELL_AURA_MOD_COMBAT_RESULT_CHANCE:
+                      rtb.Append((MeleeHitOutcome)misc);
+                    break;
 
                 // todo: more case
                 default:

@@ -387,7 +387,7 @@ namespace SpellWork
         SPELL_AURA_MOD_HEALING_DONE                         = 135,
         SPELL_AURA_MOD_HEALING_DONE_PERCENT                 = 136,
         SPELL_AURA_MOD_TOTAL_STAT_PERCENTAGE                = 137,
-        SPELL_AURA_MOD_HASTE                                = 138,
+        SPELL_AURA_MOD_MELEE_HASTE                          = 138,
         SPELL_AURA_FORCE_REACTION                           = 139,
         SPELL_AURA_MOD_RANGED_HASTE                         = 140,
         SPELL_AURA_MOD_RANGED_AMMO_HASTE                    = 141,
@@ -729,7 +729,8 @@ namespace SpellWork
         PROC_FLAG_ON_TRAP_ACTIVATION                = 0x00200000,    // 21 On trap activation
 
         PROC_FLAG_TAKEN_OFFHAND_HIT                 = 0x00400000,    // 22 Taken off-hand melee attacks(not used)
-        PROC_FLAG_SUCCESSFUL_OFFHAND_HIT            = 0x00800000     // 23 Successful off-hand melee attacks
+        PROC_FLAG_SUCCESSFUL_OFFHAND_HIT            = 0x00800000,    // 23 Successful off-hand melee attacks
+        PROC_FLAG_DEATH                             = 0x01000000     // 24 Died in any way
     };
 
     [Flags]
@@ -1310,7 +1311,7 @@ namespace SpellWork
         SPELL_ATTR_EX3_CANT_TRIGGER_PROC          = 1 << 0x10,            // 16 no triggers effects that trigger on casting a spell??
         SPELL_ATTR_EX3_NO_INITIAL_AGGRO           = 1 << 0x11,            // 17 Causes no aggro if not missed
         SPELL_ATTR_EX3_CANT_MISS                  = 1 << 0x12,            // 18 Spell should always hit its target
-        SPELL_ATTR_EX3_UNK19                      = 1 << 0x13,            // 19
+        SPELL_ATTR_EX3_IMPROVER                   = 1 << 0x13,            // 19 only spells, that improve other spells
         SPELL_ATTR_EX3_DEATH_PERSISTENT           = 1 << 0x14,            // 20 Death persistent spells
         SPELL_ATTR_EX3_UNK21                      = 1 << 0x15,            // 21
         SPELL_ATTR_EX3_REQ_WAND                   = 1 << 0x16,            // 22 Req wand
@@ -1455,8 +1456,8 @@ namespace SpellWork
         SPELL_ATTR_EXG_TOTEM_SPELL                = 1 << 0x05,            // 5 shaman summon totem spells
         SPELL_ATTR_EXG_UNK6                       = 1 << 0x06,            // 6
         SPELL_ATTR_EXG_UNK7                       = 1 << 0x07,            // 7
-        SPELL_ATTR_EXG_UNK8                       = 1 << 0x08,            // 8
-        SPELL_ATTR_EXG_UNK9                       = 1 << 0x09,            // 9
+        SPELL_ATTR7_HORDE_ONLY                    = 1 << 0x08,            // 8 Teleports, mounts and other spells.
+        SPELL_ATTR7_ALLIANCE_ONLY                 = 1 << 0x09,            // 9 Teleports, mounts and other spells.
         SPELL_ATTR_EXG_DISPEL_CHARGES             = 1 << 0x0A,            // 10 Dispel and Spellsteal individual charges instead of whole aura.
         SPELL_ATTR_EXG_UNK11                      = 1 << 0x0B,            // 11 
         SPELL_ATTR_EXG_UNK12                      = 1 << 0x0C,            // 12
@@ -1465,8 +1466,8 @@ namespace SpellWork
         SPELL_ATTR_EXG_UNK15                      = 1 << 0x0F,            // 15 
         SPELL_ATTR_EXG_UNK16                      = 1 << 0x10,            // 16
         SPELL_ATTR_EXG_UNK17                      = 1 << 0x11,            // 17
-        SPELL_ATTR_EXG_UNK18                      = 1 << 0x12,            // 18
-        SPELL_ATTR_EXG_UNK19                      = 1 << 0x13,            // 19
+        SPELL_ATTR7_HAS_CHARGE_EFFECT             = 1 << 0x12,            // 18
+        SPELL_ATTR7_ZONE_TELEPORT                 = 1 << 0x13,            // 19
         SPELL_ATTR_EXG_UNK20                      = 1 << 0x14,            // 20
         SPELL_ATTR_EXG_UNK21                      = 1 << 0x15,            // 21
         SPELL_ATTR_EXG_UNK22                      = 1 << 0x16,            // 22
@@ -1513,6 +1514,7 @@ namespace SpellWork
 
     public enum UnitMods
     {
+        UNIT_MOD_ALL_STAT               =-1,                  // STRENGTH, AGILITY, STAMINA, INTELLECT, SPIRIT
         UNIT_MOD_STAT_STRENGTH          = 0,                  // UNIT_MOD_STAT_STRENGTH..UNIT_MOD_STAT_SPIRIT must be in existed order, it's accessed by index values of Stats enum.
         UNIT_MOD_STAT_AGILITY           = 1,
         UNIT_MOD_STAT_STAMINA           = 2,
@@ -1546,7 +1548,6 @@ namespace SpellWork
         UNIT_MOD_RESISTANCE_END         = UNIT_MOD_RESISTANCE_ARCANE + 1,
         UNIT_MOD_POWER_START            = UNIT_MOD_MANA,
         UNIT_MOD_POWER_END              = UNIT_MOD_RUNIC_POWER       + 1,
-        UNIT_MOD_ALL_STAT               = -1                  // STRENGTH, AGILITY, STAMINA, INTELLECT, SPIRIT
     };
 
     public enum LockType
@@ -1659,5 +1660,18 @@ namespace SpellWork
         RUNE_UNHOLY     = 1,
         RUNE_FROST      = 2,
         RUNE_DEATH      = 3
+    };
+
+    public   enum MeleeHitOutcome
+    {
+        MELEE_HIT_EVADE     = 0,
+        MELEE_HIT_MISS      = 1,
+        MELEE_HIT_DODGE     = 2,                                // used as misc in SPELL_AURA_IGNORE_COMBAT_RESULT
+        MELEE_HIT_BLOCK     = 3,                                // used as misc in SPELL_AURA_IGNORE_COMBAT_RESULT
+        MELEE_HIT_PARRY     = 4,                                // used as misc in SPELL_AURA_IGNORE_COMBAT_RESULT
+        MELEE_HIT_GLANCING  = 5,
+        MELEE_HIT_CRIT      = 6,
+        MELEE_HIT_CRUSHING  = 7,
+        MELEE_HIT_NORMAL    = 8,
     };
 }
