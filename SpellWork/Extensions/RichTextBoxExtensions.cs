@@ -74,6 +74,15 @@ namespace SpellWork
             }
         }
 
+        public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, uint arg, object s)
+        {
+           if (arg != 0)
+            {
+                 builder.AppendFormat(format+Environment.NewLine, arg,s);
+            }
+        }
+		
+
         public static void SetStyle(this RichTextBox textbox, Color color, FontStyle style)
         {
             textbox.SelectionColor = color;

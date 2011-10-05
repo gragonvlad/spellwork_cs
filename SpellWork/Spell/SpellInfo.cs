@@ -53,31 +53,20 @@ namespace SpellWork
                 || spell.AttributesEx4 != 0 || spell.AttributesEx5 != 0 || spell.AttributesEx6 != 0 || spell.AttributesEx7 != 0)
                 rtb.AppendLine(_line);
 
-            if (spell.Attributes != 0)
-                rtb.AppendFormatLine("Attributes: 0x{0:X8} ({1})", spell.Attributes, (SpellAtribute)spell.Attributes);
-            if (spell.AttributesEx != 0)
-                rtb.AppendFormatLine("AttributesEx1: 0x{0:X8} ({1})", spell.AttributesEx, (SpellAtributeEx)spell.AttributesEx);
-            if (spell.AttributesEx2 != 0)
-                rtb.AppendFormatLine("AttributesEx2: 0x{0:X8} ({1})", spell.AttributesEx2, (SpellAtributeEx2)spell.AttributesEx2);
-            if (spell.AttributesEx3 != 0)
-                rtb.AppendFormatLine("AttributesEx3: 0x{0:X8} ({1})", spell.AttributesEx3, (SpellAtributeEx3)spell.AttributesEx3);
-            if (spell.AttributesEx4 != 0)
-                rtb.AppendFormatLine("AttributesEx4: 0x{0:X8} ({1})", spell.AttributesEx4, (SpellAtributeEx4)spell.AttributesEx4);
-            if (spell.AttributesEx5 != 0)
-                rtb.AppendFormatLine("AttributesEx5: 0x{0:X8} ({1})", spell.AttributesEx5, (SpellAtributeEx5)spell.AttributesEx5);
-            if (spell.AttributesEx6 != 0)
-                rtb.AppendFormatLine("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
-            if (spell.AttributesEx7 != 0)
-                rtb.AppendFormatLine("AttributesEx7: 0x{0:X8} ({1})", spell.AttributesEx7, (SpellAtributeEx7)spell.AttributesEx7);
+            rtb.AppendFormatLineIfNotNull("Attributes   : 0x{0:X8} ({1})", spell.Attributes,    (SpellAtribute)spell.Attributes);
+            rtb.AppendFormatLineIfNotNull("AttributesEx1: 0x{0:X8} ({1})", spell.AttributesEx,  (SpellAtributeEx)spell.AttributesEx);
+            rtb.AppendFormatLineIfNotNull("AttributesEx2: 0x{0:X8} ({1})", spell.AttributesEx2, (SpellAtributeEx2)spell.AttributesEx2);
+            rtb.AppendFormatLineIfNotNull("AttributesEx3: 0x{0:X8} ({1})", spell.AttributesEx3, (SpellAtributeEx3)spell.AttributesEx3);
+            rtb.AppendFormatLineIfNotNull("AttributesEx4: 0x{0:X8} ({1})", spell.AttributesEx4, (SpellAtributeEx4)spell.AttributesEx4);
+            rtb.AppendFormatLineIfNotNull("AttributesEx5: 0x{0:X8} ({1})", spell.AttributesEx5, (SpellAtributeEx5)spell.AttributesEx5);
+            rtb.AppendFormatLineIfNotNull("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
+            rtb.AppendFormatLineIfNotNull("AttributesEx7: 0x{0:X8} ({1})", spell.AttributesEx7, (SpellAtributeEx7)spell.AttributesEx7);
 
             rtb.AppendLine(_line);
 
-            if (spell.Targets != 0)
-                rtb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", spell.Targets, (SpellCastTargetFlags)spell.Targets);
 
-            if (spell.TargetCreatureType != 0)
-                rtb.AppendFormatLine("Creature Type Mask = 0x{0:X8} ({1})",
-                    spell.TargetCreatureType, (CreatureTypeMask)spell.TargetCreatureType);
+            rtb.AppendFormatLineIfNotNull("Targets Mask = 0x{0:X8} ({1})", spell.Targets, (SpellCastTargetFlags)spell.Targets);
+            rtb.AppendFormatLineIfNotNull("Creature Type Mask = 0x{0:X8} ({1})", spell.TargetCreatureType, (CreatureTypeMask)spell.TargetCreatureType);
 
             if (spell.Stances != 0)
                 rtb.AppendFormatLine("Stances: {0}", (ShapeshiftFormMask)spell.Stances);
