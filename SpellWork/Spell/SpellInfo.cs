@@ -189,8 +189,10 @@ namespace SpellWork
                    rtb.AppendLine(_line);
             }
 
-            rtb.AppendFormatLine("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}",
-                spell.InterruptFlags, spell.AuraInterruptFlags, spell.ChannelInterruptFlags);
+            rtb.AppendFormatLine("Interrupt Flags: 0x{0:X8}({1}), AuraIF 0x{2:X8}({3}), ChannelIF 0x{4:X8}({5})",
+                spell.InterruptFlags,((SpellInterruptFlags)spell.InterruptFlags).ToString().Replace("SPELL_INTERRUPT_FLAG_",""),
+                spell.AuraInterruptFlags,((SpellChannelInterruptFlags)spell.AuraInterruptFlags).ToString().Replace("CHANNEL_FLAG_",""),
+                spell.ChannelInterruptFlags,((SpellAuraInterruptFlags)spell.ChannelInterruptFlags).ToString().Replace("AURA_INTERRUPT_FLAG_",""));
 
             if (spell.CasterAuraState != 0)
                 rtb.AppendFormatLine("CasterAuraState = {0} ({1})", spell.CasterAuraState, (AuraState)spell.CasterAuraState);
