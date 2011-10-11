@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data;
 using System.Reflection;
+using System.Globalization;
 
 namespace SpellWork
 {
@@ -89,7 +90,12 @@ namespace SpellWork
                 return 0;
 
             uint num;
-            uint.TryParse(val.ToString(), out num);
+            string s=val.ToString().ToLower();
+            int i=s.IndexOf("0x");
+            if (i<0)
+                uint.TryParse(s,out num);
+            else
+                uint.TryParse(s.Substring(i+2),NumberStyles.HexNumber,CultureInfo.InvariantCulture,out num);
             return num;
         }
 
@@ -99,7 +105,12 @@ namespace SpellWork
                 return 0;
 
             int num;
-            int.TryParse(val.ToString(), out num);
+            string s=val.ToString().ToLower();
+            int i=s.IndexOf("0x");
+            if (i<0)
+                int.TryParse(s,out num);
+            else
+                int.TryParse(s.Substring(i+2),NumberStyles.HexNumber,CultureInfo.InvariantCulture,out num);
             return num;
         }
 
@@ -119,7 +130,12 @@ namespace SpellWork
                 return 0U;
 
             ulong num;
-            ulong.TryParse(val.ToString(), out num);
+            string s=val.ToString().ToLower();
+            int i=s.IndexOf("0x");
+            if (i<0)
+                ulong.TryParse(s,out num);
+            else
+                ulong.TryParse(s.Substring(i+2),NumberStyles.HexNumber,CultureInfo.InvariantCulture,out num);
             return num;
         }
 
