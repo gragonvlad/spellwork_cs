@@ -358,6 +358,11 @@ namespace SpellWork
             return String.Format("0x{0:X}", val);
         }
 
+        public static string ArrayName(this string val)
+        {
+            return val.Remove(val.Length - 1);
+        }
+
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]

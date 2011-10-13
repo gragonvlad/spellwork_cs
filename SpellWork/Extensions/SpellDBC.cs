@@ -111,12 +111,12 @@ namespace SpellWork
                     if (f == null)
                     {
                         //Try to find array
-                        f = ObjType.GetField(fname.Remove(fname.Length - 1), B_Flags);
+                        f = ObjType.GetField(fname.ArrayName(), B_Flags);
                         if (f != null && f.FieldType.IsArray)
                         {
 
                             Array arr = (Array)f.GetValueDirect(R);
-                            for (int j = 0; j < arr.Length; j++)
+                            for (int j = 0; j < arr.Length && SpellDBCFields[i].ArrayName()== f.Name; j++)
                             {
                               arr.SetValue(Convert.ChangeType(reader[i++].ToString(), f.FieldType.GetElementType()),j);
                             }
@@ -155,13 +155,13 @@ namespace SpellWork
                 if (f == null)
                 {
                     //Try to find array
-                    f = ObjType.GetField(FieldName.Remove(FieldName.Length - 1), B_Flags);
+                    f = ObjType.GetField(FieldName.ArrayName(), B_Flags);
                     if (f != null && f.FieldType.IsArray)
                     {
-
-                        foreach (var v in (Array)f.GetValue(Current))
+                         Array arr = (Array)f.GetValue(Current);
+                        for (int j = 0; j < arr.Length && SpellDBCFields[i].ArrayName()== f.Name; j++)
                         {
-                            result.AppendFormat("{0},", v.ToMySqlString());
+                            result.AppendFormat("{0},", arr.GetValue(j).ToMySqlString());
                             i++;
                         }
                         i--; //correct counter before next iteration
