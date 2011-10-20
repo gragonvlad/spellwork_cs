@@ -657,27 +657,23 @@ namespace SpellWork
 
         private void _bCreatePatch_Click(object sender, EventArgs e)
         {
-            uint spell1 = _tbSpellID.Text.ToUInt32();
              string patch;
             if (pg_Spell.SelectedObject != null)
             {
-                if (DBC.Spell.ContainsKey(spell1))
-                {
-                  patch = SpellDBC.CreateSpellPatch(spell1, ((DynamicObject)pg_Spell.SelectedObject).Spell);
+                 patch = SpellDBC.CreateSpellPatch(((DynamicObject)pg_Spell.SelectedObject).Spell);
                  if (!patch.IsEmpty())
                    {
                     _rbDBCSQL.AppendLine("-- Spell Patch---------------");
                     _rbDBCSQL.AppendLine(patch);
                    }
-                }
 
-                 patch = SpellDBC.CreateSpellSql(((DynamicObject)pg_Spell.SelectedObject).Spell).ToString();
+                patch = SpellDBC.CreateSpellSql(((DynamicObject)pg_Spell.SelectedObject).Spell).ToString();
                 if (!patch.IsEmpty())
                 {
                     _rbDBCSQL.AppendLine("-- Spell SQL for spell_dbc---------------");
                     _rbDBCSQL.AppendLine(patch);
                 }
-
+                _rbDBCSQL.ColorizeCode();
             }
 
         }

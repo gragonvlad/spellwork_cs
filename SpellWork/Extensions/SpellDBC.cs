@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Reflection;
@@ -14,7 +13,7 @@ namespace SpellWork
 
         #region Spell patcher
 
-        public static string CreateSpellPatch(uint _spell, SpellEntry Current)
+        public static string CreateSpellPatch(SpellEntry Current)
         {
 
             int ssize = Marshal.SizeOf(typeof(SpellEntry)) / sizeof(Int32);
@@ -22,7 +21,7 @@ namespace SpellWork
             Int32[] CurrentS = new Int32[ssize];
             IntPtr O_ptr = Marshal.AllocHGlobal(ssize * sizeof(Int32));
             IntPtr C_ptr = Marshal.AllocHGlobal(ssize * sizeof(Int32));
-            SpellEntry O = DBC.Spell[_spell];
+            SpellEntry O = DBC.Spell[Current.ID];
             Marshal.StructureToPtr(O, O_ptr, false);
             Marshal.StructureToPtr(Current, C_ptr, false);
             Marshal.Copy(O_ptr, OriginalS, 0, ssize);
@@ -140,12 +139,15 @@ namespace SpellWork
         #region SpellDBC Generate SQL
         public static StringBuilder CreateSpellSql(SpellEntry Current)
         {
-            StringBuilder result = new StringBuilder("REPLACE INTO `spell_dbc` ( `");
+            SpellEntry Old_Spell = DBC.Spell[Current.ID];
+            StringBuilder result = new StringBuilder();
             StringBuilder not_found = new StringBuilder();
-            result.AppendFormat("{0}`) VALUES (", String.Join("`, `", SpellDBCFields.ToArray()));
+            StringBuilder update=new StringBuilder();
 
             Type ObjType = typeof(SpellEntry);
-
+            result.AppendFormatLine("-- Replace DBC values for spell {0} - {1}", Old_Spell.ID,Old_Spell.SpellNameRank);
+            result.AppendFormatLine("DELETE FROM `spell_dbc` WHERE ID={0};", Old_Spell.ID);
+            result.AppendFormat("INSERT INTO `spell_dbc` (`{0}`)\r\nVALUES (",String.Join("`, `", SpellDBCFields.ToArray()));
 
             for (int i = 0; i < SpellDBCFields.Count; i++)
             {
@@ -158,10 +160,15 @@ namespace SpellWork
                     f = ObjType.GetField(FieldName.ArrayName(), B_Flags);
                     if (f != null && f.FieldType.IsArray)
                     {
-                         Array arr = (Array)f.GetValue(Current);
+                        Array arr = (Array)f.GetValue(Old_Spell);
+                        Array arr_new = (Array)f.GetValue(Current);
                         for (int j = 0; j < arr.Length && SpellDBCFields[i].ArrayName()== f.Name; j++)
                         {
-                            result.AppendFormat("{0},", arr.GetValue(j).ToMySqlString());
+                            string old_val = arr.GetValue(j).ToMySqlString();
+                            string new_val = arr_new.GetValue(j).ToMySqlString();
+                            if (old_val != new_val)
+                                update.AppendFormatLine("`{0}`={1}, -- old value = {1}", SpellDBCFields[i], new_val, old_val);
+                            result.AppendFormat(" {0} ,", old_val);
                             i++;
                         }
                         i--; //correct counter before next iteration
@@ -175,13 +182,25 @@ namespace SpellWork
                 }
                 else
                 {
-                    result.AppendFormat("{0},", f.GetValue(Current).ToMySqlString());
+                    string old_val=f.GetValue(Old_Spell).ToMySqlString();
+                    string new_val=f.GetValue(Current).ToMySqlString();
+                    result.AppendFormat(" {0} ,", old_val);
+                    if (old_val != new_val)
+                        update.AppendFormatLine("`{0}`={1}, -- old value = {2}", SpellDBCFields[i], new_val,old_val);
                 }
             }
 
-            result.AppendFormat("'{0}');", Current.SpellName); //assume that the last field is `Comment`
-            result.AppendFormat("-- Attention! Fields {0}not mapped ", not_found.ToString());
-
+            result.AppendFormatLine("'{0}');", Old_Spell.SpellName); //assume that the last field is `Comment`
+            result.AppendFormatLine("-- Attention! Fields [ {0} ] not mapped", not_found.ToString());
+            if (update.Length > 0)
+            {
+                update.AppendFormatLine("`Comment` = 'Replacement for spell {0} \"{1}\"' ", Current.ID, Current.SpellNameRank);
+                result.AppendLine();
+                result.AppendLine();
+                result.AppendLine("UPDATE `spell_dbc` SET ");
+                result.AppendFormat("{0}", update.ToString());
+                result.AppendFormatLine("WHERE Id={0};", Current.ID);
+            }
             return result;
         }
         #endregion
