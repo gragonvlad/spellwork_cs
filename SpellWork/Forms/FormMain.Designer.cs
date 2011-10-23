@@ -176,6 +176,7 @@
             this._bSearchSpell = new System.Windows.Forms.Button();
             this.pg_Spell = new System.Windows.Forms.PropertyGrid();
             this._bCreatePatch = new System.Windows.Forms.Button();
+            this.cbDBfields = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1928,6 +1929,15 @@
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.cbDBfields.AutoSize = true;
+            this.cbDBfields.Location = new System.Drawing.Point(106, 56);
+            this.cbDBfields.Name = "cbDBfields";
+            this.cbDBfields.Size = new System.Drawing.Size(122, 17);
+            this.cbDBfields.TabIndex = 4;
+            this.cbDBfields.Text = "Only spell_dbc fields";
+            this.cbDBfields.UseVisualStyleBackColor = true;
+            this.cbDBfields.CheckedChanged += new System.EventHandler(this.cbDBfields_CheckedChanged);
+            this.panel1.Controls.Add(this.cbDBfields);
 
         }
 
@@ -2079,5 +2089,6 @@
         private System.Windows.Forms.Button _bSearchSpell;
         private System.Windows.Forms.PropertyGrid pg_Spell;
         private System.Windows.Forms.Button _bCreatePatch;
+        private System.Windows.Forms.CheckBox cbDBfields;
     }
 }

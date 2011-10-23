@@ -632,12 +632,22 @@ namespace SpellWork
             FormSearch.Search(_tbSpellID);
         }
 
+        private void AddSpellToExplorer(SpellEntry S)
+        {
+            DynamicObject D = new DynamicObject(S);
+            if (cbDBfields.Checked)
+                D.Filter = String.Join(";", SpellDBC.SpellDBCFields.ToArray());
+            pg_Spell.SelectedObject = D;
+        }
+
 
         private void _tbSpellID_TextChanged(object sender, EventArgs e)
         {
             uint spell1 = _tbSpellID.Text.ToUInt32();
             if (DBC.Spell.ContainsKey(spell1))
-                pg_Spell.SelectedObject = new DynamicObject(DBC.Spell[spell1]);
+            {
+                AddSpellToExplorer(DBC.Spell[spell1]);
+            }
         }
 
         private void UpdateSpellInfo()
@@ -678,5 +688,15 @@ namespace SpellWork
 
         }
         #endregion
+
+        private void cbDBfields_CheckedChanged(object sender, EventArgs e)
+        {
+            DynamicObject D=pg_Spell.SelectedObject as DynamicObject;
+            if (D!=null)
+            {
+                SpellEntry S = D.Spell;
+                AddSpellToExplorer(S);
+            }
+        }
     }
 }
