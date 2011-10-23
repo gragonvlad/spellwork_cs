@@ -105,10 +105,24 @@ namespace SpellWork
         private void FilterProperties(string filter)
         {
             _FilteredPropertyDescriptors.Clear();
+            List<string> props =new List<string>(); // = filter.Split(';');
+            props.AddRange(filter.Split(';'));
 
-            foreach (PropertyDescriptor descriptor in _FullPropertyDescriptors)
-                if (descriptor.Name.ToLower().IndexOf(filter) > -1)
+            foreach (string p in props)
+            {
+                PropertyDescriptor descriptor = _FullPropertyDescriptors.Find(p, true);
+                if (descriptor != null)
                     _FilteredPropertyDescriptors.Add(descriptor);
+                else
+                {
+                   descriptor = _FullPropertyDescriptors.Find(p.ArrayName(), true);
+                   if (descriptor != null)
+                   {
+                       if ( _FilteredPropertyDescriptors.IndexOf(descriptor) <0 )
+                       _FilteredPropertyDescriptors.Add(descriptor);
+                   }
+                }
+            }
         }
 
 

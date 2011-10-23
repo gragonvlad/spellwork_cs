@@ -8,7 +8,7 @@ namespace SpellWork
 {
     public static class SpellDBC
     {
-         private static List<string> SpellDBCFields = new List<string>();
+         public static List<string> SpellDBCFields = new List<string>();
          private const BindingFlags B_Flags =BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.IgnoreCase;
 
         #region Spell patcher
