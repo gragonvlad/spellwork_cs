@@ -129,9 +129,9 @@ namespace SpellWork
                         f.SetValueDirect(R, Convert.ChangeType(reader[i].ToString(), f.FieldType));
                     }
                 }
-                if (IsNew)
+                if (!IsNew)
+                  DBC.Spell.Remove(New_ID);
                   DBC.Spell.Add(New_ID, str);
-                
             }
         }
        #endregion
