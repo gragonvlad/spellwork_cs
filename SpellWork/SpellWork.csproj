@@ -103,6 +103,12 @@
     <Compile Include="Forms\FormSearch.Designer.cs">
       <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SpellFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\SpellFilter.Designer.cs">
+      <DependentUpon>SpellFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Loader.cs" />
     <Compile Include="Spell\ProcInfo.cs">
     </Compile>
@@ -139,6 +145,9 @@
     <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SpellFilter.resx">
+      <DependentUpon>SpellFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
