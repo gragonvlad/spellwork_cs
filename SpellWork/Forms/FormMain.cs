@@ -16,8 +16,6 @@ namespace SpellWork
         public FormMain()
         {
             InitializeComponent();
-            splitContainer3.SplitterDistance = 128;
-            
             Text = DBC.VERSION;
 
             _cbProcSpellFamilyTree.SetEnumValues<SpellFamilyNames>("SpellFamilyTree");
@@ -49,7 +47,7 @@ namespace SpellWork
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _cbProcFlag.Visible = _bWrite.Visible = ((TabControl)sender).SelectedIndex == 1;
+            _bWrite.Visible = ((TabControl)sender).SelectedIndex == 1;
         }
 
         private void Settings_Click(object sender, EventArgs e)
@@ -113,11 +111,6 @@ namespace SpellWork
         #endregion
 
         #region SPELL PROC INFO PAGE
-
-        private void _bSpellInfo_Click(object sender, EventArgs e)
-        {
-            splitContainer2.Panel2Collapsed = !splitContainer2.Panel2Collapsed;
-        }
 
         private void _cbProcFlag_CheckedChanged(object sender, EventArgs e)
         {
