@@ -453,16 +453,18 @@ namespace SpellWork
         private void _bCreatePatch_Click(object sender, EventArgs e)
         {
              string patch;
-            if (pg_Spell.SelectedObject != null)
+             DynamicObject D = pg_Spell.SelectedObject as DynamicObject;
+             if (D != null)
             {
-                 patch = SpellDBC.CreateSpellPatch(((DynamicObject)pg_Spell.SelectedObject).Spell);
-                 if (!patch.IsEmpty())
-                   {
+                SpellEntry S = D.Spell;
+                patch = SpellDBC.CreateSpellPatch(S);
+                if (!patch.IsEmpty())
+                {
                     _rbDBCSQL.AppendLine("-- Spell Patch---------------");
                     _rbDBCSQL.AppendLine(patch);
-                   }
+                }
 
-                patch = SpellDBC.CreateSpellSql(((DynamicObject)pg_Spell.SelectedObject).Spell).ToString();
+                patch = SpellDBC.CreateSpellSql(S).ToString();
                 if (!patch.IsEmpty())
                 {
                     _rbDBCSQL.AppendLine("-- Spell SQL for spell_dbc---------------");
