@@ -16,7 +16,6 @@ namespace SpellWork.Forms
 
         public event EventHandler OnSpellChange;
         public SpellEntry SelectedSpell { get; private set; }
-    
         public SpellFilter()
         {
             InitializeComponent();
@@ -150,6 +149,12 @@ namespace SpellWork.Forms
                  OnSpellChange(this, new EventArgs());
             }
             
+        }
+
+        public void Search(String S)
+        {
+            _tbSearchId.Text = S;
+            AdvancedSearch();
         }
     }
 }
