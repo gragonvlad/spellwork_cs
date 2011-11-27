@@ -162,8 +162,7 @@
             //
             // _cbTarget2
             //
-            this._cbTarget2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbTarget2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._cbTarget2.DropDownHeight = 500;
             this._cbTarget2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbTarget2.DropDownWidth = 302;
@@ -177,8 +176,6 @@
             //
             // _cbTarget1
             //
-            this._cbTarget1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._cbTarget1.DropDownHeight = 500;
             this._cbTarget1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbTarget1.DropDownWidth = 302;
@@ -222,6 +219,8 @@
             //
             // _cbSpellFamilyName
             //
+            this._cbSpellFamilyName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._cbSpellFamilyName.DropDownHeight = 500;
             this._cbSpellFamilyName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSpellFamilyName.DropDownWidth = 302;
