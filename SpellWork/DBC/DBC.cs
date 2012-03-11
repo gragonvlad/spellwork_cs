@@ -11,6 +11,10 @@ namespace SpellWork
         public const int MAX_EFFECT_INDEX               = 3;
         public const int SPELL_ENTRY_FOR_DETECT_LOCALE  = 1;
 
+        public static Dictionary<uint, SpellMissileMotionEntry>     SpellMissileMotion;
+        public static Dictionary<uint, SpellMissileEntry>           SpellMissile;
+        public static Dictionary<uint, SpellVisualEntry>            SpellVisual;
+
         public static Dictionary<uint, SpellEntry>                  Spell;
         public static Dictionary<uint, SpellRadiusEntry>            SpellRadius;
         public static Dictionary<uint, SpellCastTimesEntry>         SpellCastTimes;
@@ -30,6 +34,7 @@ namespace SpellWork
         public static Dictionary<uint, string> SkillLineStrings        = new Dictionary<uint, string>();
         public static Dictionary<uint, string> SpellRangeStrings       = new Dictionary<uint, string>();
         public static Dictionary<uint, string> ScreenEffectStrings     = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> SpellMissileMotionStrings = new Dictionary<uint, string>();
 
         // DB 
         public static List<Item> ItemTemplate = new List<Item>();

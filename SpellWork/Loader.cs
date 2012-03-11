@@ -23,6 +23,10 @@ namespace SpellWork
             DBC.SpellCastTimes      = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
             DBC.SpellDifficulty     = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
 
+            DBC.SpellMissile        = DBCReader.ReadDBC<SpellMissileEntry>(null);
+            DBC.SpellMissileMotion  = DBCReader.ReadDBC<SpellMissileMotionEntry>(DBC.SpellMissileMotionStrings);
+            DBC.SpellVisual         = DBCReader.ReadDBC<SpellVisualEntry>(null);
+
             DBC.OverrideSpellData   = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
             DBC.SpellRuneCostTable  = DBCReader.ReadDBC<SpellRuneCostEntry>(null);
 
