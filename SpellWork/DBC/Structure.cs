@@ -513,8 +513,8 @@ namespace SpellWork
     public struct SpellMissileMotionEntry
     {
         public uint Id;
-        private uint _Name;
-        private uint _Script;
+        public uint _Name;
+        public uint _Script;
         public uint Flags;
         public uint MissileCount;
 
