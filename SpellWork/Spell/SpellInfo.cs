@@ -272,33 +272,30 @@ namespace SpellWork
 
         private void AppendSpellVisualInfo()
         {
-            rtb.AppendLine(_line);
-            var spellVisualData = from spellVisualEntry in DBC.SpellVisual
-                        where spellVisualEntry.Value.Id == spell.SpellVisual[0]
-                        select new { spellVisualEntry };
-
-            if (spellVisualData.Count() == 0)
+            SpellVisualEntry visualData;
+            if (!DBC.SpellVisual.TryGetValue(spell.SpellVisual[0], out visualData))
                 return;
 
+            SpellMissileEntry missileEntry;
+            SpellMissileMotionEntry missileMotionEntry;
+            var hasMissileEntry = DBC.SpellMissile.TryGetValue(visualData.MissileModel, out missileEntry);
+            var hasMissileMotion = DBC.SpellMissileMotion.TryGetValue(visualData.MissileMotionId, out missileMotionEntry);
+
+            if (!hasMissileEntry && !hasMissileMotion)
+                return;
+
+            rtb.AppendLine(_line);
             rtb.SetBold();
             rtb.AppendLine("Missile data");
             rtb.SetDefaultStyle();
 
-            SpellVisualEntry visualData = spellVisualData.First().spellVisualEntry.Value;
-
-            rtb.AppendFormatLine("Missile Model ID: {0}", visualData.MissileModel);
-            rtb.AppendFormatLine("Missile attachment: {0}", visualData.MissileAttachment);
-            rtb.AppendFormatLine("Missile cast offset: X:{0} Y:{1} Z:{2}", visualData.MissileCastOffsetX, visualData.MissileCastOffsetY, visualData.MissileCastOffsetZ);
-            rtb.AppendFormatLine("Missile impact offset: X:{0} Y:{1} Z:{2}", visualData.MissileImpactOffsetX, visualData.MissileImpactOffsetY, visualData.MissileImpactOffsetZ);
-
             // Missile Model Data.
-            var missileData = from spellMissileEntry in DBC.SpellMissile
-                              where spellMissileEntry.Value.Id == visualData.MissileModel
-                              select new { spellMissileEntry };
-
-            if (missileData.Count() != 0)
+            if (hasMissileEntry)
             {
-                SpellMissileEntry missileEntry = missileData.First().spellMissileEntry.Value;
+                rtb.AppendFormatLine("Missile Model ID: {0}", visualData.MissileModel);
+                rtb.AppendFormatLine("Missile attachment: {0}", visualData.MissileAttachment);
+                rtb.AppendFormatLine("Missile cast offset: X:{0} Y:{1} Z:{2}", visualData.MissileCastOffsetX, visualData.MissileCastOffsetY, visualData.MissileCastOffsetZ);
+                rtb.AppendFormatLine("Missile impact offset: X:{0} Y:{1} Z:{2}", visualData.MissileImpactOffsetX, visualData.MissileImpactOffsetY, visualData.MissileImpactOffsetZ);
                 rtb.AppendFormatLine("MissileEntry ID: {0}", missileEntry.Id);
                 rtb.AppendFormatLine("Collision Radius: {0}", missileEntry.collisionRadius);
                 rtb.AppendFormatLine("Default Pitch: {0} - {1}", missileEntry.defaultPitchMin, missileEntry.defaultPitchMax);
@@ -311,13 +308,8 @@ namespace SpellWork
             }
 
             // Missile Motion Data.
-            var missileMotionData = from spellMissileMotionEntry in DBC.SpellMissileMotion
-                                         where spellMissileMotionEntry.Value.Id == visualData.MissileMotionId
-                                         select new { spellMissileMotionEntry };
-
-            if (missileMotionData.Count() != 0)
+            if (hasMissileMotion)
             {
-                SpellMissileMotionEntry missileMotionEntry = missileMotionData.First().spellMissileMotionEntry.Value;
                 rtb.AppendFormatLine("Missile motion: {0}", missileMotionEntry.Name);
                 rtb.AppendFormatLine("Missile count: {0}", missileMotionEntry.MissileCount);
                 rtb.AppendLine("Missile Script body:");
