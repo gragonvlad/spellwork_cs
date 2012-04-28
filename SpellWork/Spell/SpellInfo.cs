@@ -301,7 +301,7 @@ namespace SpellWork
             for (int EFFECT_INDEX = 0; EFFECT_INDEX < DBC.MAX_EFFECT_INDEX; EFFECT_INDEX++)
             {
                 rtb.SetBold();
-                if ((SpellEffects)spell.Effect[EFFECT_INDEX] == SpellEffects.NO_SPELL_EFFECT)
+                if ((SpellEffects)spell.Effect[EFFECT_INDEX] == SpellEffects.SPELL_EFFECT_NONE)
                 {
                     rtb.AppendFormatLine("Effect {0}:  NO EFFECT", EFFECT_INDEX);
                     rtb.AppendLine();
