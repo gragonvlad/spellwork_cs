@@ -1241,7 +1241,7 @@ namespace SpellWork
         SPELL_ATTR_EX_DISPEL_AURAS_ON_IMMUNITY    = 1 << 0x0F,            // 15 remove auras on immunity
         SPELL_ATTR_EX_UNAFFECTED_BY_SCHOOL_IMMUNE = 1 << 0x10,            // 16 unaffected by school immunity
         SPELL_ATTR_EX_UNK17                       = 1 << 0x11,            // 17 for auras SPELL_AURA_TRACK_CREATURES, SPELL_AURA_TRACK_RESOURCES and SPELL_AURA_TRACK_STEALTHED select non-stacking tracking spells
-        SPELL_ATTR_EX_UNK18                       = 1 << 0x12,            // 18
+        SPELL_ATTR_EX_BREAKABLE_BY_ANY_DAMAGE     = 1 << 0x12,            // 18
         SPELL_ATTR_EX_UNK19                       = 1 << 0x13,            // 19
         SPELL_ATTR_EX_REQ_TARGET_COMBO_POINTS     = 1 << 0x14,            // 20 Req combo points on target
         SPELL_ATTR_EX_UNK21                       = 1 << 0x15,            // 21
@@ -1309,7 +1309,7 @@ namespace SpellWork
         SPELL_ATTR_EX3_UNK5                       = 1 << 0x05,            // 5
         SPELL_ATTR_EX3_UNK6                       = 1 << 0x06,            // 6
         SPELL_ATTR_EX3_STACK_FOR_DIFF_CASTERS     = 1 << 0x07,            // 7 create a separate (de)buff stack for each caster
-        SPELL_ATTR_EX3_UNK8                       = 1 << 0x08,            // 8
+        SPELL_ATTR_EX3_TARGET_ONLY_PLAYER         = 1 << 0x08,            // 8
         SPELL_ATTR_EX3_UNK9                       = 1 << 0x09,            // 9
         SPELL_ATTR_EX3_MAIN_HAND                  = 1 << 0x0A,            // 10 Main hand weapon required
         SPELL_ATTR_EX3_BATTLEGROUND               = 1 << 0x0B,            // 11 Can casted only on battleground
@@ -1381,7 +1381,7 @@ namespace SpellWork
         SPELL_ATTR_EX5_NONE                       =      0x00,
         SPELL_ATTR_EX5_UNK0                       = 1 << 0x00,            // 0
         SPELL_ATTR_EX5_NO_REAGENT_WHILE_PREP      = 1 << 0x01,            // 1 not need reagents if UNIT_FLAG_PREPARATION
-        SPELL_ATTR_EX5_UNK2                       = 1 << 0x02,            // 2 removed at enter arena (e.g. 31850 since 3.3.3)
+        SPELL_ATTR_EX5_REMOVE_AT_ENTER_ARENA      = 1 << 0x02,            // 2 removed at enter arena (e.g. 31850 since 3.3.3)
         SPELL_ATTR_EX5_USABLE_WHILE_STUNNED       = 1 << 0x03,            // 3 usable while stunned
         SPELL_ATTR_EX5_UNK4                       = 1 << 0x04,            // 4
         SPELL_ATTR_EX5_SINGLE_TARGET_SPELL        = 1 << 0x05,            // 5 Only one target can be apply at a time
