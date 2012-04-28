@@ -216,18 +216,18 @@ namespace SpellWork
         SPELL_EFFECT_LEAP_BACK                  = 138,
         SPELL_EFFECT_CLEAR_QUEST                = 139,
         SPELL_EFFECT_FORCE_CAST                 = 140,
-        SPELL_EFFECT_141                        = 141,
+        SPELL_EFFECT_FORCE_CAST_WITH_VALUE      = 141,
         SPELL_EFFECT_TRIGGER_SPELL_WITH_VALUE   = 142,
         SPELL_EFFECT_APPLY_AREA_AURA_OWNER      = 143,
-        SPELL_EFFECT_144                        = 144,
-        SPELL_EFFECT_145                        = 145,
+        SPELL_EFFECT_KNOCK_BACK_DEST            = 144,
+        SPELL_EFFECT_PULL_TOWARDS_DEST          = 145,
         SPELL_EFFECT_ACTIVATE_RUNE              = 146,
         SPELL_EFFECT_QUEST_FAIL                 = 147,
-        SPELL_EFFECT_148                        = 148,
+        SPELL_EFFECT_TRIGGER_MISSILE_SPELL_WITH_VALUE = 148,
         SPELL_EFFECT_CHARGE2                    = 149,
-        SPELL_EFFECT_150                        = 150,
+        SPELL_EFFECT_QUEST_START                = 150,
         SPELL_EFFECT_TRIGGER_SPELL_2            = 151,
-        SPELL_EFFECT_152                        = 152,
+        SPELL_EFFECT_SUMMON_RAF_FRIEND          = 152,
         SPELL_EFFECT_CREATE_PET                 = 153,
         SPELL_EFFECT_TEACH_TAXI_NODE            = 154,
         SPELL_EFFECT_TITAN_GRIP                 = 155,
@@ -297,7 +297,7 @@ namespace SpellWork
         SPELL_AURA_TRACK_RESOURCES                          = 45,
         SPELL_AURA_46                                       = 46,       // Ignore all Gear test spells
         SPELL_AURA_MOD_PARRY_PERCENT                        = 47,
-        SPELL_AURA_48                                       = 48,       // One periodic spell
+        SPELL_AURA_PERIODIC_TRIGGER_BY_CLIENT               = 48,       // One periodic spell
         SPELL_AURA_MOD_DODGE_PERCENT                        = 49,
         SPELL_AURA_MOD_CRITICAL_HEALING_AMOUNT              = 50,
         SPELL_AURA_MOD_BLOCK_PERCENT                        = 51,
@@ -574,7 +574,7 @@ namespace SpellWork
     /// </summary>
     public enum Targets
     {
-        NO_TARGET                               = 0,
+        TARGET_NONE                             = 0,
         TARGET_SELF                             = 1,
         TARGET_RANDOM_ENEMY_CHAIN_IN_AREA       = 2,                 // only one spell has that, but regardless, it's a target type after all
         TARGET_RANDOM_FRIEND_CHAIN_IN_AREA      = 3,
@@ -604,7 +604,7 @@ namespace SpellWork
         TARGET_MASTER                           = 27,
         TARGET_ALL_ENEMY_IN_AREA_CHANNELED      = 28,
         TARGET_29                               = 29,
-        TARGET_ALL_FRIENDLY_UNITS_AROUND_CASTER = 30,                // in TargetB used only with TARGET_ALL_AROUND_CASTER and in self casting range in TargetA
+        TARGET_ALL_FRIENDLY_UNITS_AROUND_CASTER = 30,                // select friendly for caster object faction (in different original caster faction) in TargetB used only with TARGET_ALL_AROUND_CASTER and in self casting range in TargetA
         TARGET_ALL_FRIENDLY_UNITS_IN_AREA       = 31,
         TARGET_MINION                           = 32,
         TARGET_ALL_PARTY                        = 33,
@@ -625,11 +625,11 @@ namespace SpellWork
         TARGET_DYNAMIC_OBJECT_BEHIND            = 48,
         TARGET_DYNAMIC_OBJECT_LEFT_SIDE         = 49,
         TARGET_DYNAMIC_OBJECT_RIGHT_SIDE        = 50,
-        TARGET_51                               = 51,
-        TARGET_AREAEFFECT_CUSTOM_2              = 52,
+        TARGET_OBJECT_AREA_SRC                  = 51,
+        TARGET_AREAEFFECT_GO_AROUND_DEST        = 52,                // gameobject around destination, select by spell_script_target
         TARGET_CURRENT_ENEMY_COORDINATES        = 53,                // set unit coordinates as dest, only 16 target B imlemented
         TARGET_LARGE_FRONTAL_CONE               = 54,
-        TARGET_55                               = 55,
+        TARGET_LEAP_FORWARD                     = 55,                // Target point must be calculated in target selection
         TARGET_ALL_RAID_AROUND_CASTER           = 56,
         TARGET_SINGLE_FRIEND_2                  = 57,
         TARGET_58                               = 58,
@@ -648,8 +648,8 @@ namespace SpellWork
         TARGET_71                               = 71,
         TARGET_RANDOM_NEARBY_LOC                = 72,                // used in teleport onto nearby locations
         TARGET_RANDOM_CIRCUMFERENCE_POINT       = 73,
-        TARGET_74                               = 74,
-        TARGET_75                               = 75,
+        TARGET_RANDOM_POINT_NEAR_TARGET         = 74,                // Target point must be calculated in target selection
+        TARGET_RANDOM_POINT_NEAR_TARGET_2       = 75,                // Target point must be calculated in target selection
         TARGET_DYNAMIC_OBJECT_COORDINATES       = 76,
         TARGET_SINGLE_ENEMY                     = 77,
         TARGET_POINT_AT_NORTH                   = 78,                // 78-85 possible _COORDINATES at radius with pi/4 step around target in unknown order, N?
@@ -666,18 +666,18 @@ namespace SpellWork
         TARGET_DIRECTLY_FORWARD                 = 89,
         TARGET_NONCOMBAT_PET                    = 90,
         TARGET_91                               = 91,
-        TARGET_92                               = 92,
+        TARGET_UNIT_CREATOR                     = 92,
         TARGET_93                               = 93,
-        TARGET_94                               = 94,
-        TARGET_95                               = 95,
-        TARGET_96                               = 96,
-        TARGET_97                               = 97,
-        TARGET_98                               = 98,
-        TARGET_99                               = 99,
-        TARGET_100                              = 100,
-        TARGET_101                              = 101,
-        TARGET_102                              = 102,
-        TARGET_103                              = 103,
+        TARGET_OWNED_VEHICLE                    = 94,
+        TARGET_UNIT_DRIVER                      = 95,
+        TARGET_UNIT_PASSENGER_0                 = 96,
+        TARGET_UNIT_PASSENGER_1                 = 97,
+        TARGET_UNIT_PASSENGER_2                 = 98,
+        TARGET_UNIT_PASSENGER_3                 = 99,
+        TARGET_UNIT_PASSENGER_4                 = 100,
+        TARGET_UNIT_PASSENGER_5                 = 101,
+        TARGET_UNIT_PASSENGER_6                 = 102,
+        TARGET_UNIT_PASSENGER_7                 = 103,
         TARGET_IN_FRONT_OF_CASTER_30            = 104,
         TARGET_105                              = 105,
         TARGET_106                              = 106,
