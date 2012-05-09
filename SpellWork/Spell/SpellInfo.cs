@@ -663,7 +663,7 @@ namespace SpellWork
 
             switch (aura)
             {
-                case AuraType.SPELL_AURA_OVERRIDE_SPELLS:
+                case AuraType.SPELL_AURA_ADD_MECHANIC_ABILITIES:
                     if (!DBC.OverrideSpellData.ContainsKey((uint)misc))
                     {
                         rtb.SetStyle(Color.Red, FontStyle.Bold);
