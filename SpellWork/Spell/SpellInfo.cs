@@ -206,8 +206,8 @@ namespace SpellWork
             if (spell.TargetAuraStateNot != 0)
                 rtb.AppendFormatLine("TargetAuraStateNot = {0} ({1})", spell.TargetAuraStateNot, (AuraState)spell.TargetAuraStateNot);
 
-            if (_spell.MaxAffectedTargets != 0)
-                _rtb.AppendFormatLine("MaxAffectedTargets = {0}", _spell.MaxAffectedTargets);
+            if (spell.MaxAffectedTargets != 0)
+                rtb.AppendFormatLine("MaxAffectedTargets = {0}", spell.MaxAffectedTargets);
 
             AppendSpellAura();
 
