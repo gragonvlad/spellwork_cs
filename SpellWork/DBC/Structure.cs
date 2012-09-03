@@ -325,6 +325,27 @@ namespace SpellWork
                 return (SpellSchoolMask)SchoolMask;
             }
         }
+        
+        /// Return fit spell to to SpellFamilyMask or no
+        /// </summary>
+        public bool CheckSpellMask(int spellFlag)
+        { 
+            uint i = 1;
+            if (spellFlag < 32)
+            {
+                return (SpellFamilyFlags[0] & (i << spellFlag)) != 0;
+            }
+            else if (spellFlag < 64)
+            {
+                return (SpellFamilyFlags[1] & (i << (spellFlag - 32))) != 0;
+            }
+            else if (spellFlag < 96)
+            {
+                return (SpellFamilyFlags[2] & (i << (spellFlag - 64))) != 0;
+            }
+            return false;
+        }
+        
         public void SetName(string N)
         {
             uint StringID=_SpellName[(uint)DBC.Locale];

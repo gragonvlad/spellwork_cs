@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBC\int8.cs" />
     <Compile Include="Extensions\DynamicObject.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Spell\SpellClassMask.cs" />

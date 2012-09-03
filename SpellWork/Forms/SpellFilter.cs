@@ -72,19 +72,8 @@ namespace SpellWork.Forms
             _spellList = (from spell in DBC.Spell.Values
 
                           where ((id == 0 || spell.ID == id)
-
                               && (ic == 0 || spell.SpellIconID == ic)
-
-  /*                            && (at == 0 || (spell.Attributes & at) != 0
-                                          || (spell.AttributesEx & at) != 0
-                                          || (spell.AttributesEx2 & at) != 0
-                                          || (spell.AttributesEx3 & at) != 0
-                                          || (spell.AttributesEx4 & at) != 0
-                                          || (spell.AttributesEx5 & at) != 0
-                                          || (spell.AttributesEx6 & at) != 0
-                                          || (spell.AttributesEx7 & at) != 0))*/
-
-                             && ((id != 0 || ic != 0) || spell.SpellName.ContainsText(name)))
+                              && ((id != 0 || ic != 0) || spell.SpellName.ContainsText(name)))
 
                           select spell).ToList();
 
@@ -110,6 +99,9 @@ namespace SpellWork.Forms
             var bTarget2 = _cbTarget2.SelectedIndex != 0;
             var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
 
+            var bSpellFlag = _cbSpellClassMask.SelectedIndex != 0;
+            int fSpellFlag = _cbSpellClassMask.SelectedValue.ToInt32();
+
             // additional filtert
             var advVal1 = _tbAdvancedFilter1Val.Text;
             var advVal2 = _tbAdvancedFilter2Val.Text;
@@ -132,6 +124,7 @@ namespace SpellWork.Forms
                               && (!bTarget2 || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
                               && (!use1val || spell.CreateFilter(field1, advVal1, field1ct))
                               && (!use2val || spell.CreateFilter(field2, advVal2, field2ct))
+                              && (!bSpellFlag || spell.CheckSpellMask(fSpellFlag))
 
                           select spell).ToList();
 
@@ -158,9 +151,10 @@ namespace SpellWork.Forms
             AdvancedSearch();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void _cbSpellClassMask_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (((ComboBox)sender).SelectedIndex != 0)
+                AdvancedFilter();
         }
     }
 }

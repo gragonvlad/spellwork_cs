@@ -351,7 +351,7 @@
             this._cbSpellClassMask.Name = "_cbSpellClassMask";
             this._cbSpellClassMask.Size = new System.Drawing.Size(308, 21);
             this._cbSpellClassMask.TabIndex = 16;
-            this._cbSpellClassMask.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this._cbSpellClassMask.SelectedIndexChanged += new System.EventHandler(this._cbSpellClassMask_SelectedIndexChanged);
             // 
             // SpellFilter
             // 
