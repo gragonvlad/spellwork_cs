@@ -217,6 +217,7 @@ namespace SpellWork
             cb.DataSource = dt;
             cb.DisplayMember = "NAME";
             cb.ValueMember = "ID";
+            cb.Text = "NAME";
         }
 
         public static void SetEnumValuesDirect<T>(this ComboBox cb, Boolean setFirstValue)

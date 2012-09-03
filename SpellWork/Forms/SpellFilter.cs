@@ -101,6 +101,7 @@ namespace SpellWork.Forms
 
             var bSpellFlag = _cbSpellClassMask.SelectedIndex != 0;
             int fSpellFlag = _cbSpellClassMask.SelectedValue.ToInt32();
+            string sSpellFlag = _cbSpellClassMask.Text;
 
             // additional filtert
             var advVal1 = _tbAdvancedFilter1Val.Text;
@@ -124,7 +125,7 @@ namespace SpellWork.Forms
                               && (!bTarget2 || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
                               && (!use1val || spell.CreateFilter(field1, advVal1, field1ct))
                               && (!use2val || spell.CreateFilter(field2, advVal2, field2ct))
-                              && (!bSpellFlag || spell.CheckSpellMask(fSpellFlag))
+                              && (!bSpellFlag || (spell.CheckSpellFamily(sSpellFlag) && spell.CheckSpellMask(fSpellFlag)))
 
                           select spell).ToList();
 

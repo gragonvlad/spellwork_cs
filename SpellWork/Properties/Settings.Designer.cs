@@ -49,7 +49,7 @@ namespace SpellWork.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mangos")]
         public string User {
             get {
                 return ((string)(this["User"]));

@@ -9,7 +9,7 @@
       <Value Profile="(Default)">3306</Value>
     </Setting>
     <Setting Name="User" Type="System.String" Scope="User">
-      <Value Profile="(Default)">root</Value>
+      <Value Profile="(Default)">mangos</Value>
     </Setting>
     <Setting Name="Pass" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

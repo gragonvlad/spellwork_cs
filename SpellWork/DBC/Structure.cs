@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using SpellWork;
 
 namespace SpellWork
 {
@@ -346,6 +347,58 @@ namespace SpellWork
             return false;
         }
         
+        public bool CheckSpellFamily(string spellFlag)
+        {
+            string _type = spellFlag.Substring(9, 4);
+            uint family = 0;
+            switch (_type)
+            {
+                case "GENE":
+                    family = 0;
+                    break;
+                case "PRIE":
+                    family = 6;
+                    break;
+                case "MAGE":
+                    family = 3;
+                    break;
+                case "WARR":
+                    family = 4;
+                    break;
+                case "WARL":
+                    family = 5;
+                    break;
+                case "DRUI":
+                    family = 7;
+                    break;
+                case "ROGU":
+                    family = 8;
+                    break;
+                case "HUNT":
+                    family = 9;
+                    break;
+                case "PALA":
+                    family = 10;
+                    break;
+                case "SHAM":
+                    family = 11;
+                    break;
+                case "POTI":
+                    family = 13;
+                    break;
+                case "DEAT":
+                    family = 15;
+                    break;
+                case "PET_":
+                    family = 17;
+                    break;
+                case "ALL_":
+                    return true;
+                default:
+                    break;
+            }
+            return SpellFamilyName == family;
+        }
         public void SetName(string N)
         {
             uint StringID=_SpellName[(uint)DBC.Locale];
