@@ -457,13 +457,7 @@ namespace SpellWork
              if (D != null)
             {
                 SpellEntry S = D.Spell;
-                patch = SpellDBC.CreateSpellPatch(S);
-                if (!patch.IsEmpty())
-                {
-                    _rbDBCSQL.AppendLine("-- Spell Patch---------------");
-                    _rbDBCSQL.AppendLine(patch);
-                }
-
+               
                 patch = SpellDBC.CreateSpellSql(S).ToString();
                 if (!patch.IsEmpty())
                 {

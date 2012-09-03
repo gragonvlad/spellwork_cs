@@ -26,7 +26,9 @@ namespace SpellWork.Forms
             _cbSpellEffect.SetEnumValues<SpellEffects>("Effect");
             _cbTarget1.SetEnumValues<Targets>("Target A");
             _cbTarget2.SetEnumValues<Targets>("Target B");
-
+            
+            _cbSpellClassMask.SetEnumValues<ClassFlag>("SpellClassFlag");
+            
             _cbAdvancedFilter1.SetStructFields<SpellEntry>();
             _cbAdvancedFilter2.SetStructFields<SpellEntry>();
 
@@ -66,24 +68,23 @@ namespace SpellWork.Forms
             string name = _tbSearchId.Text;
             uint id = name.ToUInt32();
             uint ic = _tbSearchIcon.Text.ToUInt32();
-            uint at = _tbSearchAttributes.Text.ToUInt32();
-
+         
             _spellList = (from spell in DBC.Spell.Values
 
                           where ((id == 0 || spell.ID == id)
 
                               && (ic == 0 || spell.SpellIconID == ic)
 
-                              && (at == 0 || (spell.Attributes & at) != 0
+  /*                            && (at == 0 || (spell.Attributes & at) != 0
                                           || (spell.AttributesEx & at) != 0
                                           || (spell.AttributesEx2 & at) != 0
                                           || (spell.AttributesEx3 & at) != 0
                                           || (spell.AttributesEx4 & at) != 0
                                           || (spell.AttributesEx5 & at) != 0
                                           || (spell.AttributesEx6 & at) != 0
-                                          || (spell.AttributesEx7 & at) != 0))
+                                          || (spell.AttributesEx7 & at) != 0))*/
 
-                             && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name))
+                             && ((id != 0 || ic != 0) || spell.SpellName.ContainsText(name)))
 
                           select spell).ToList();
 
@@ -155,6 +156,11 @@ namespace SpellWork.Forms
         {
             _tbSearchId.Text = S;
             AdvancedSearch();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

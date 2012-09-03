@@ -328,13 +328,13 @@ namespace SpellWork
         public void SetName(string N)
         {
             uint StringID=_SpellName[(uint)DBC.Locale];
-            if  (StringID!=0)
+            if  (StringID != 0)
             {
-                N=SpellName+" (Override by spell_dbc)";
+                N=SpellName+" (overrided by spell_dbc)";
             }
             else
             {
-                N+=" (from spell_dbc)";
+                N += " (reconstructed by spell_dbc)";
             }
 
             StringID=0x900000+ID;

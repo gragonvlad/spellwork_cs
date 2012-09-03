@@ -199,14 +199,19 @@ namespace SpellWork
         public static void SetEnumValues<T>(this ComboBox cb, string NoValue)
         {
             DataTable dt = new DataTable();
+            
             dt.Columns.Add("ID");
+            dt.Columns.Add("Key");
             dt.Columns.Add("NAME");
+            int key = -1;
+            
+            dt.Rows.Add(new Object[] {-1, key++, NoValue });
 
-            dt.Rows.Add(new Object[] { -1, NoValue });
-
-            foreach (var str in Enum.GetValues(typeof(T)))
+            foreach (var str in Enum.GetNames(typeof(T)))
             {
-                dt.Rows.Add(new Object[] { (int)str, "(" + ((int)str).ToString("000") + ") " + str });
+                object enumPair = Enum.Parse(typeof(T), str);
+                
+                dt.Rows.Add(new Object[] { (int)enumPair, key++, "(" + ((int)enumPair).ToString("000") + ") " + str });
             }
 
             cb.DataSource = dt;
